@@ -17,11 +17,13 @@ public class SplashScreen extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+
         videoView = (VideoView) findViewById(R.id.videoView);
 
-        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.dev_1);
+        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.dev_imp);
         videoView.setVideoURI(video);
-
+//عرض القديو داخل الشاشة الموقته
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
                 startNextActivity();
@@ -31,13 +33,14 @@ public class SplashScreen extends AppCompatActivity {
         videoView.start();
     }
 
+
+
+//عند انتهاء هرض الفديو يقوم بفتح صفحة اخرى
     private void startNextActivity() {
         if (isFinishing())
             return;
         startActivity(new Intent(this, About.class));
         finish();
     }
-
-
 
         }

@@ -1,15 +1,20 @@
 package com.owlalarm.splashabout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 public class About extends AppCompatActivity {
 
@@ -21,10 +26,12 @@ public class About extends AppCompatActivity {
     long time;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
 
          //ربط الانميشن مع النص
         text=(TextView)findViewById(R.id.titel);
@@ -41,7 +48,7 @@ public class About extends AppCompatActivity {
         button=(Button)findViewById(R.id.button);
         facebook=(Button)findViewById(R.id.facebook);
         twet=(Button)findViewById(R.id.twet);
-        youtub=(Button)findViewById(R.id.youtub) ;
+        youtub=(Button)findViewById(R.id.youtube) ;
 
 
 
@@ -49,14 +56,21 @@ public class About extends AppCompatActivity {
         out=AnimationUtils.loadAnimation(this,R.anim.out);
         rotat=AnimationUtils.loadAnimation(this,R.anim.rotat);
 
-
-
-
-
-
     }
 
-//زر الرجوع الى الخلف للخروج من التطبيق
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId()==android.R.id.home){
+
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //زر الرجوع الى الخلف للخروج من التطبيق
     @Override
     public void onBackPressed() {
 
@@ -72,8 +86,11 @@ public class About extends AppCompatActivity {
         time= System.currentTimeMillis();
     }
 
-    public void devClick(View view) {
 
+
+
+    //عند الضعط على شعار الفريق
+    public void devClick(View view) {
 
         //عند الضغط للمره الاولى تظهر الايقوتات المختغية
         if (open){
@@ -104,9 +121,51 @@ public class About extends AppCompatActivity {
             youtub.setVisibility(View.INVISIBLE);
 
         }
+    }
 
+
+
+
+//زر الذخاب الر الفيس بوك
+    public void facebook(View view) {
+
+        Intent facebook= new Intent(Intent.ACTION_VIEW);
+        facebook.setData(Uri.parse("https://www.facebook.com/DevImpactOfficial"));
+//التاكد بان ليس هناكintentاخرى تفتح في نفس اللحظة
+        if (facebook.resolveActivity(getPackageManager()) !=null){
+            startActivity(facebook);
+
+        }
+    }
+
+
+
+// زر الذهاب الى اليوتيوب
+    public void youtube_btn(View view) {
+
+        Intent youtube = new Intent(Intent.ACTION_VIEW);
+        youtube.setData(Uri.parse("https://www.youtube.com/c/Devimpact"));
+//التاكد بان ليس هناكintentاخرى تفتح في نفس اللحظة
+        if (youtube.resolveActivity(getPackageManager()) !=null){
+            startActivity(youtube);
+
+        }
+    }
+
+
+
+    public void twitter_btn(View view) {
+
+
+            Intent twet = new Intent(Intent.ACTION_VIEW);
+            twet.setData(Uri.parse("https://twitter.com/DevImpact2018"));
+//التاكد بان ليس هناكintentاخرى تفتح في نفس اللحظة
+            if (twet.resolveActivity(getPackageManager()) !=null){
+                startActivity(twet);
+
+            }
+        }
 
     }
 
-}
 
